@@ -25,9 +25,6 @@ services:
     env_file:
       - ./.env # The name of your environment file (the one at the repository root)
 
-    # environment:
-    #   - POSTGRES_PASSWORD="lifeline-sirius-crabby"
-
     # By default, a Postgres database is running on the 5432 port.
     # If we want to access the database from our computer (outside the container),
     # we must share the port with our computer's port.
