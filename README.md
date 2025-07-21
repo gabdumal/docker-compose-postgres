@@ -52,9 +52,6 @@ Below, you will find the Docker Compose file. Each line is commented on so that 
 **Database Service:**
 
 ```yaml
-# A Docker Compose must always start with the version tag.
-# We use '3' because it's the last version.
-version: '3'
 
 # You should know that Docker Compose works with services.
 # 1 service = 1 container.
