@@ -52,9 +52,6 @@ Below, you will find the Docker Compose file. Each line is commented on so that 
 **Database Service:**
 
 ```yaml
-# A Docker Compose must always start with the version tag.
-# We use '3' because it's the last version.
-version: '3'
 
 # You should know that Docker Compose works with services.
 # 1 service = 1 container.
@@ -158,6 +155,38 @@ volumes:
     - ${PWD}/init.sql:/docker-entrypoint-initdb.d/init.sql
 
 ```
+
+### Add a pgadmin service to access your database via a UI
+
+```yml
+services:
+
+  database:
+    ... # details from above
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 15433:80
+    env_file:
+      - .env
+    depends_on:
+      - database
+    networks:
+      - postgres-network
+    volumes:
+      - ${PWD}/pgadmin-data/:/var/lib/pgadmin/
+```
+
+The pgadmin service allows you - once run - to access your postgreSQL database via a browser and quickly inspect or manage your data from there. 
+After you ran docker compose (see next step) you can access pgadmin at `localhost:15433` in your browser and login with the admin email and password as specified in the `.env` file.
+
+Once logged in, you need to connect to the database in your docker network.
+To do so, right click on 'servers' on the left side and go to 'Servers > Register > Server...'.
+In the general tab, specify a name of your liking.
+In the connection tab, as the host name enter the name of the postgres service in the docker-compose.yml file (in our case "database") and as the port the post inside the docker-network (in our case the default 5432).
+
+
 
 ### Step 3. Run the Docker Compose
 
