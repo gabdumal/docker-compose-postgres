@@ -2,7 +2,7 @@ services:
   database:
     image: "postgres:latest"
     ports:
-      - 43938:5432
+      - ${EXTERNAL_POSTGRES_PORT}:5432
     env_file:
       - .env
     networks:
